@@ -20,12 +20,20 @@ public class BattleShip {
 
         System.out.println("BattleShip v 0.1");
 
-        char[][] campo = new char[5][5];
-        char[][] navi = new char[5][5];
+        System.out.println("Inserisci la dimensione della plancia: ");
+
+        int dimensione = scanner.nextInt();
+
+        System.out.println("Insersci la lunghezza della nave: ");
+        int lunghezzaNave = scanner.nextInt();
+
+
+        char[][] campo = new char[dimensione][dimensione];
+        char[][] navi = new char[dimensione][dimensione];
 
         // Devo inizializzare il campo da gioco
         for (int r = 0; r < campo.length; r++) {
-            for (int c = 0; c < campo.length; c++) {
+            for (int c = 0; c < campo[r].length; c++) {
                 campo[r][c] = SIMBOLO_ACQUA;
                 navi[r][c] = SIMBOLO_ACQUA;
             }
@@ -36,19 +44,19 @@ public class BattleShip {
         // Come tirare una monetina 50:50, in alternativa pari o dispari
         boolean orizzontale = Math.random() < 0.5;
         if (orizzontale) {
-            int riga = (int) (Math.random() * 5); //Non sarà mai 5 perchè arrotondo per difetto, 0-4
-            int colonna = (int) (Math.random() * 3);
+            int riga = (int) (Math.random() * dimensione); //Non sarà mai 5 perchè arrotondo per difetto, 0-4
+           int colonna = (int) (Math.random() * (dimensione - lunghezzaNave + 1));
 
             // Questo loop è per posizionare la mia nave nella mappa
             // Perché la mia nave, da specifica, è lunga 3
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < lunghezzaNave; i++) {
                 navi[riga][colonna + i] = SIMBOLO_NAVE;
             }
         } else {
-            int riga = (int) (Math.random() * 3);
-            int colonna = (int) (Math.random() * 5);
+            int riga = (int) (Math.random() * (dimensione - lunghezzaNave + 1));
+            int colonna = (int) (Math.random() * dimensione);
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < lunghezzaNave; i++) {
                 navi[riga + i][colonna] = SIMBOLO_NAVE;
             }
         }
